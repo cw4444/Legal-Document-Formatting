@@ -9,7 +9,7 @@ import type {
   BatchRunRecord,
   HouseStyleProfile,
 } from './types'
-import { downloadBlob, formatNumber, pluralize } from './utils'
+import { downloadBlob, formatNumber, getErrorMessage, pluralize } from './utils'
 
 const isSupabaseConfigured = Boolean(
   import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY,
@@ -187,7 +187,7 @@ function App() {
           if (runs[0]) setSelectedRunId(runs[0].id)
         }
       } catch (caughtError) {
-        if (!cancelled) setNotice(caughtError instanceof Error ? caughtError.message : 'Unable to load Supabase data.')
+        if (!cancelled) setNotice(getErrorMessage(caughtError, 'Unable to load Supabase data.'))
       } finally {
         if (!cancelled) setLoadingRemoteData(false)
       }
@@ -214,7 +214,7 @@ function App() {
         const documents = await dataModule.fetchBatchDocuments(selectedRunId)
         if (!cancelled) setSelectedRunDocuments(documents)
       } catch (caughtError) {
-        if (!cancelled) setNotice(caughtError instanceof Error ? caughtError.message : 'Unable to load batch documents.')
+        if (!cancelled) setNotice(getErrorMessage(caughtError, 'Unable to load batch documents.'))
       } finally {
         if (!cancelled) setLoadingRunDocuments(false)
       }
@@ -232,7 +232,7 @@ function App() {
       const signedUrl = await dataModule.getStorageSignedUrl(path)
       window.open(signedUrl, '_blank', 'noopener,noreferrer')
     } catch (caughtError) {
-      setNotice(caughtError instanceof Error ? caughtError.message : 'Unable to open stored file.')
+      setNotice(getErrorMessage(caughtError, 'Unable to open stored file.'))
     }
   }
 
@@ -247,7 +247,7 @@ function App() {
       await authModule.signInWithMagicLink(authEmail.trim())
       setNotice('Magic link sent. Open it, then come back here once the session is active.')
     } catch (caughtError) {
-      setNotice(caughtError instanceof Error ? caughtError.message : 'Unable to send magic link.')
+      setNotice(getErrorMessage(caughtError, 'Unable to send magic link.'))
     }
   }
 
@@ -259,7 +259,7 @@ function App() {
       setRecentRuns([])
       setSelectedRunDocuments([])
     } catch (caughtError) {
-      setNotice(caughtError instanceof Error ? caughtError.message : 'Unable to sign out.')
+      setNotice(getErrorMessage(caughtError, 'Unable to sign out.'))
     }
   }
 
@@ -305,7 +305,7 @@ function App() {
       }
     } catch (caughtError) {
       setStatus('error')
-      setError(caughtError instanceof Error ? caughtError.message : 'Unknown processing failure.')
+      setError(getErrorMessage(caughtError, 'Unknown processing failure.'))
       setResults([])
     } finally {
       event.target.value = ''
@@ -340,7 +340,7 @@ function App() {
       setSelectedProfileId(savedProfile.id)
       setNotice(`Saved "${savedProfile.name}" to Supabase.`)
     } catch (caughtError) {
-      setNotice(caughtError instanceof Error ? caughtError.message : 'Unable to save profile.')
+      setNotice(getErrorMessage(caughtError, 'Unable to save profile.'))
     }
   }
 
@@ -414,9 +414,7 @@ function App() {
           ) : null}
         </div>
 
-        <div className="hero-visual" aria-hidden="true">
-          <div className="visual-orb visual-orb-large" />
-          <div className="visual-orb visual-orb-small" />
+        <div className="hero-steps" aria-hidden="true">
           <div className="visual-grid">
             {AUTOMATION_STEPS.map((step, index) => (
               <div key={step} className="step-line" style={{ animationDelay: `${index * 120}ms` }}>
