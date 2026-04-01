@@ -287,10 +287,5 @@ This keeps the prototype isolated from `main` until it is ready.
 - Stored files are scoped to the signed-in user via private storage paths and signed URLs.
 - The prototype is intentionally frontend-heavy for speed of iteration; production hardening would likely move parts of the storage / persistence flow server-side.
 
-## Next Good Improvements
-
-- editable profile rule sets in the UI, beyond fonts / sizes / watch terms
-- more legal-document heuristics for clauses, schedules, signature blocks, and defined terms
-- richer run drilldown with issue filtering and search
-- server-side upload processing for larger files or team-wide shared workflows
-- role-based access controls for teams
+## License
+This software is currently not licensed for commercial use. If you’d like to use this in a business setting or install it professionally, please contact me at cw4444@gmail.com
