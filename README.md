@@ -264,22 +264,6 @@ If you only remember three things, remember these:
 npm run build
 ```
 
-## Git / Branch Safety
-
-Work has been pushed to the feature branch:
-
-`codex/safe-supabase-demo`
-
-Repository:
-
-[https://github.com/cw4444/Document-Production-Specialist-Legal](https://github.com/cw4444/Document-Production-Specialist-Legal)
-
-Suggested PR link:
-
-[https://github.com/cw4444/Document-Production-Specialist-Legal/pull/new/codex/safe-supabase-demo](https://github.com/cw4444/Document-Production-Specialist-Legal/pull/new/codex/safe-supabase-demo)
-
-This keeps the prototype isolated from `main` until it is ready.
-
 ## Known Notes
 
 - The app expects real `.docx` files, not `.doc` or renamed files.
@@ -291,4 +275,3 @@ This keeps the prototype isolated from `main` until it is ready.
 
 This project is proprietary. You may not use, copy, modify, redistribute, deploy, or install it for commercial or client use without prior written permission.
 
-Commercial licenses are available. For business use, professional installation, or deployment enquiries see: https://www.charli-builds.com/
