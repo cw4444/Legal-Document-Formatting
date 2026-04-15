@@ -1,30 +1,28 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# dependencies
+node_modules/
 
-node_modules
-dist
-dist-ssr
-*.local
+# next.js
+.next/
+
+# environment variables
 .env
+.env.local
 .env.*
 !.env.example
-*.tsbuildinfo
-vite.config.js
-vite.config.d.ts
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# build output
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# misc
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+.vscode/
+coverage/

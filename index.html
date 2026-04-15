@@ -2,12 +2,182 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document Production Automation</title>
+    <title>Benefits Specialist Demo</title>
+    <meta
+      name="description"
+      content="A simple agentic AI demo for benefits renewal logic, vendor audit, and statutory compliance summaries."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="backdrop"></div>
+    <header class="topbar">
+      <div>
+        <span class="brand-mark">BS</span>
+        <span class="brand-name">Benefits Specialist</span>
+      </div>
+      <div class="topbar-note">agentic benefits demo</div>
+    </header>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Agentic AI demo</p>
+          <h1>Benefits intelligence, dressed up as a very serious memo.</h1>
+          <p class="lede">
+            Paste a benefits brief or upload a file and get a clear, non-technical summary of
+            renewal risks, vendor issues, statutory coverage, and scaleability signals. Then hand
+            it to the Chairmain with a straight face.
+          </p>
+          <div class="cta-row">
+            <button id="run-demo" class="primary">Run demo analysis</button>
+            <button id="export-report" class="secondary">Export report</button>
+            <button id="copy-report" class="secondary">Copy summary</button>
+            <button id="share-report" class="secondary">Share text</button>
+            <button id="load-sample" class="secondary">Load sample brief</button>
+          </div>
+        </div>
+        <aside class="hero-panel">
+          <div class="panel-heading">
+            <span>Demo output</span>
+            <span id="status-pill" class="pill">Ready</span>
+          </div>
+          <div class="metric-grid">
+            <div>
+              <strong id="score-renewal">--</strong>
+              <span>Renewal risk</span>
+            </div>
+            <div>
+              <strong id="score-vendor">--</strong>
+              <span>Vendor audit</span>
+            </div>
+            <div>
+              <strong id="score-compliance">--</strong>
+              <span>Compliance coverage</span>
+            </div>
+          </div>
+          <div class="summary-strip">
+            <div>
+              <span>Primary mode</span>
+              <strong id="mode-label">Local demo</strong>
+            </div>
+            <div>
+              <span>Output style</span>
+              <strong>Executive brief</strong>
+            </div>
+          </div>
+          <div class="mode-switcher" role="group" aria-label="Report mode">
+            <button id="mode-client" class="mode-button is-active" type="button">Client-facing</button>
+            <button id="mode-internal" class="mode-button" type="button">Internal draft</button>
+          </div>
+          <div class="summary-card">
+            <h2>What it does</h2>
+            <ul>
+              <li>Scans benefits language for renewal cycles and contract pain points</li>
+              <li>Surfaces vendor, broker, SLA, and data quality checks</li>
+              <li>Produces a plain-English statutory summary by country or region</li>
+            </ul>
+          </div>
+        </aside>
+      </section>
+
+      <section class="workspace">
+        <div class="column">
+          <div class="section-head">
+            <h2>Input</h2>
+            <p>Paste the job spec, a policy note, or a benefits renewal brief.</p>
+          </div>
+          <textarea id="input-text" spellcheck="false"></textarea>
+          <div class="file-row">
+            <label class="file-button">
+              <input id="file-input" type="file" accept=".txt,.md,.json" />
+              Upload file
+            </label>
+            <span id="file-name" class="file-name">No file selected</span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="section-head">
+            <h2>AI settings</h2>
+            <p>Optional. Keep your key on your device. Choose a provider when you want live AI.</p>
+          </div>
+          <div class="settings">
+            <label>
+              Provider
+              <select id="provider">
+                <option value="local">Local demo mode</option>
+                <option value="openai">OpenAI</option>
+                <option value="anthropic">Anthropic</option>
+                <option value="google">Google</option>
+                <option value="xai">xAI</option>
+              </select>
+            </label>
+            <label>
+              API key
+              <input id="api-key" type="password" placeholder="Stored locally in your browser" />
+            </label>
+            <label>
+              Model name
+              <input id="model-name" type="text" placeholder="Optional, e.g. gpt-4.1-mini" />
+            </label>
+          </div>
+          <div class="note">
+            This demo runs locally by default. If you wire in a provider later, the key field is ready.
+          </div>
+          <div class="note quiet">
+            Proxy mode posts your prompt to a tiny local server, so the browser never talks to a model API directly.
+          </div>
+        </div>
+      </section>
+
+      <section class="results">
+        <div class="section-head">
+          <h2>Analysis</h2>
+          <p>Useful for a human reviewer who wants a first-pass answer without digging through the full brief.</p>
+        </div>
+        <div class="report-banner">
+          <div>
+            <span class="report-label">Executive-ready</span>
+            <h3>One-page summary for leadership review</h3>
+          </div>
+          <p id="report-meta">Local analysis only</p>
+        </div>
+        <div class="results-grid">
+          <article>
+            <h3>Renewal logic</h3>
+            <p id="renewal-text"></p>
+          </article>
+          <article>
+            <h3>Vendor audit</h3>
+            <p id="vendor-text"></p>
+          </article>
+          <article>
+            <h3>Statutory summary</h3>
+            <p id="compliance-text"></p>
+          </article>
+          <article>
+            <h3>Scaleability logic</h3>
+            <p id="scale-text"></p>
+          </article>
+        </div>
+        <article class="executive-note">
+          <h3>Executive summary</h3>
+          <p id="executive-summary"></p>
+        </article>
+        <article class="next-steps">
+          <h3>Next steps</h3>
+          <ol id="next-steps-list"></ol>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
   </body>
 </html>
